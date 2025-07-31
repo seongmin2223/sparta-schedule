@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,14 @@ public class ScheduleService {
             scheduleResponseDtos.add(new ScheduleResponseDto(schedule));
         }
         return scheduleResponseDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public ScheduleResponseDto findOneSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("해당 ID의 일정이 존재하지 않습니다: " + id)
+        );
+        return new ScheduleResponseDto(schedule);
     }
 }
 

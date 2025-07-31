@@ -24,5 +24,9 @@ public class ScheduleController {
         return scheduleService.findAllSchedule();
     }
 
+    @GetMapping("/findOneSchedule/{id}")
+    public ScheduleResponseDto findOneSchedule(@PathVariable Long id) {
+        return scheduleService.findOneSchedule(id);
+    }
 
 }
