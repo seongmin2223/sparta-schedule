@@ -42,5 +42,25 @@ public class ScheduleService {
         );
         return new ScheduleResponseDto(schedule);
     }
-}
 
+    @Transactional
+    public ScheduleResponseDto updateSchedule(ScheduleRequestDto scheduleRequestDto, Long id){
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("해당 ID의 일정이 존재하지 않습니다." + id)
+        );
+        if (!schedule.getPassword().equalsIgnoreCase(scheduleRequestDto.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 틀려요");
+        }
+        schedule.update(scheduleRequestDto);
+        return new  ScheduleResponseDto(schedule);
+    }
+
+    @Transactional
+    public void deleteSchedule(Long id) {
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                ()-> new NoSuchElementException("\"해당 ID의 일정이 존재하지 않습니다:" + id)
+        );
+
+        scheduleRepository.delete(schedule);
+    }
+}
