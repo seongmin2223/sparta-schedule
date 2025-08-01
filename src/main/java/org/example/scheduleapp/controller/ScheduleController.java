@@ -30,7 +30,7 @@ public class ScheduleController {
         return scheduleService.findOneSchedule(id);
     }
 
-    @PostMapping("/updateSchedule/{id}")
+    @PutMapping("/updateSchedule/{id}")
     public ScheduleResponseDto updateSchedule(@RequestBody ScheduleRequestDto scheduleRequestDto, @PathVariable Long id) {
         return scheduleService.updateSchedule(scheduleRequestDto, id);
     }
