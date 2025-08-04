@@ -31,7 +31,7 @@ public class ScheduleService {
         List<ScheduleResponseDto> scheduleResponseDtos = new ArrayList<>();
         for (Schedule schedule : schedules) {
             scheduleResponseDtos.add(new ScheduleResponseDto(schedule));
-        }
+        }//전체돌면서 스케줄리스트를 가져오는부분
         return scheduleResponseDtos;
     }
 
@@ -39,7 +39,7 @@ public class ScheduleService {
     public ScheduleResponseDto findOneSchedule(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("해당 ID의 일정이 존재하지 않습니다: " + id)
-        );
+        );//개별아이디를 검증하는 부분
         return new ScheduleResponseDto(schedule);
     }
 
@@ -50,7 +50,7 @@ public class ScheduleService {
         );
         if (!schedule.getPassword().equalsIgnoreCase(scheduleRequestDto.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 틀려요");
-        }
+        }//비밀번호 일치를 검증하는부분
         schedule.update(scheduleRequestDto);
         return new  ScheduleResponseDto(schedule);
     }
